@@ -23,9 +23,37 @@ const RegistrationModal: React.FC<ModalProps> = ({ onClose, course }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [onClose])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get("name"),
+      surname: formData.get("surname"),
+      birthdate: formData.get("birthdate"),
+      personalNumber: formData.get("personalNumber"),
+      mobile: formData.get("mobile"),
+      email: formData.get("email"),
+      course
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+
+      if (!response.ok) {
+        const resData = await response.json()
+        throw new Error(resData.error || "Submission failed")
+      }
+
+      setSubmitted(true)
+    } catch (err) {
+      console.error("❌ Registration failed:", err)
+      alert("Something went wrong. Please try again.")
+    }
   }
 
   const resetForm = () => setSubmitted(false)
@@ -50,12 +78,14 @@ const RegistrationModal: React.FC<ModalProps> = ({ onClose, course }) => {
 
             <div className="grid grid-cols-2 gap-4">
               <input
+                name="name"
                 type="text"
                 placeholder="Name"
                 required
                 className="input-field"
               />
               <input
+                name="surname"
                 type="text"
                 placeholder="Surname"
                 required
@@ -67,6 +97,7 @@ const RegistrationModal: React.FC<ModalProps> = ({ onClose, course }) => {
               </div>
 
               <input
+                name="personalNumber"
                 type="text"
                 placeholder="Personal Number"
                 required
@@ -75,6 +106,7 @@ const RegistrationModal: React.FC<ModalProps> = ({ onClose, course }) => {
                 className="input-field"
               />
               <input
+                name="mobile"
                 type="text"
                 placeholder="Mobile Number"
                 required
@@ -83,6 +115,7 @@ const RegistrationModal: React.FC<ModalProps> = ({ onClose, course }) => {
                 className="input-field"
               />
               <input
+                name="email"
                 type="email"
                 placeholder="Email"
                 required
