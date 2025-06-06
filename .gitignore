@@ -1,0 +1,22 @@
+# Dependency directories
+node_modules/
+.vite/
+dist/
+
+# Build outputs
+*.log
+*.cache
+*.tsbuildinfo
+
+# Environment and config files
+.env
+.env.local
+.env.*.local
+
+# IDE/editor folders
+.vscode/
+.idea/
+.DS_Store
+
+# OS-specific
+Thumbs.db
