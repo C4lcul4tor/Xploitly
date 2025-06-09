@@ -20,3 +20,4 @@ dist/
 
 # OS-specific
 Thumbs.db
+.env

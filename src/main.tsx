@@ -1,21 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import About from './pages/About'
-import Lecturers from './pages/Lecturers'
-import Contact from './pages/Contact'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/lecturers" element={<Lecturers />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

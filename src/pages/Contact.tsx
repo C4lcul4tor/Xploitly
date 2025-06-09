@@ -4,11 +4,37 @@ import { motion } from 'framer-motion'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000) // Reset after 3s
+    try {
+      const res = await fetch('http://localhost:5000/api/contact/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      const result = await res.json()
+      if (res.ok && result.success) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setSubmitted(false), 3000)
+      } else {
+        alert('❌ Failed to send message.')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('❌ Something went wrong.')
+    }
   }
 
   return (
@@ -23,20 +49,29 @@ export default function Contact() {
         >
           <input
             type="text"
+            name="name"
             placeholder="Your Name"
             required
+            value={formData.name}
+            onChange={handleChange}
             className="w-full px-4 py-3 rounded bg-[#1e1e3f] text-white border border-cyan-400 shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
           <input
             type="email"
+            name="email"
             placeholder="Your Email"
             required
+            value={formData.email}
+            onChange={handleChange}
             className="w-full px-4 py-3 rounded bg-[#1e1e3f] text-white border border-cyan-400 shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
           <textarea
+            name="message"
             placeholder="Your Message"
             rows={4}
             required
+            value={formData.message}
+            onChange={handleChange}
             className="w-full px-4 py-3 rounded bg-[#1e1e3f] text-white border border-cyan-400 shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
           <button

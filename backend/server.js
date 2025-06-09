@@ -1,15 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const registerRoute = require('./routes/register');
-
 const app = express();
-const PORT = 5000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use('/register', registerRoute);
+// Routes
+const registerRoute = require('./routes/register');
+const adminAuthRoute = require('./routes/adminAuth');
+const courseRoutes = require('./routes/courses');
+const contactRoutes = require('./routes/contact'); // ✅ <-- added here
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+app.use('/api/register', registerRoute);
+app.use('/api/admin-auth', adminAuthRoute);
+app.use('/api/courses', courseRoutes);
+app.use('/api/contact', contactRoutes); // ✅ <-- added here
+
+// Start Server
+app.listen(5000, () => {
+  console.log('🚀 Backend running on http://localhost:5000');
 });
