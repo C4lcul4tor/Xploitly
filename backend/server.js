@@ -11,7 +11,9 @@ const registerRoute = require('./routes/register');
 const adminAuthRoute = require('./routes/adminAuth');
 const courseRoutes = require('./routes/courses');
 const contactRoutes = require('./routes/contact'); // ✅ <-- added here
+const lecturersRoute = require('./routes/lecturers');
 
+app.use("/api/lecturers", require("./routes/lecturers"));
 app.use('/api/register', registerRoute);
 app.use('/api/admin-auth', adminAuthRoute);
 app.use('/api/courses', courseRoutes);

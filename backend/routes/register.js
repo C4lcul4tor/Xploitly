@@ -141,6 +141,16 @@ router.post("/courses/add", (req, res) => {
     res.status(201).json({ message: "Course created successfully" });
   });
 });
+// 👨‍🏫 GET all lecturers
+router.get("/lecturers", (req, res) => {
+  pool.query("SELECT * FROM lecturers ORDER BY id DESC", (err, results) => {
+    if (err) {
+      console.error("DB Error:", err);
+      return res.status(500).json({ error: "Failed to fetch lecturers" });
+    }
+    res.json(results);
+  });
+});
 
 // ✅ Export router
 module.exports = router;
