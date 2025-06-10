@@ -20,7 +20,7 @@ function HomePage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/courses'); // this gets ALL courses now
+        const res = await fetch('http://82.29.178.64:5000/api/courses'); // this gets ALL courses now
         if (!res.ok) {
           throw new Error('Server responded with error');
         }
