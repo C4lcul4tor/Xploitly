@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.input-field {
-  @apply w-full px-4 py-2 rounded bg-[#1e1e3f] text-cyan-200 border border-cyan-400 shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-500 transition-all duration-200;
-}
