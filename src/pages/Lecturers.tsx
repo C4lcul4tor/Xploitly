@@ -16,7 +16,7 @@ export default function Lecturers() {
   useEffect(() => {
     const fetchLecturers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/lecturers');
+        const res = await fetch('http://82.29.178.64:5000/api/lecturers');
         if (!res.ok) throw new Error('Failed to fetch lecturers');
         const data = await res.json();
         setLecturers(data);
