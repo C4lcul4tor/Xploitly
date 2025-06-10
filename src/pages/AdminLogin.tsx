@@ -15,7 +15,7 @@ const AdminLogin: React.FC = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin-auth", {
+      const res = await fetch("http://82.29.178.64:5000/api/admin-auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
