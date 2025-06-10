@@ -18,7 +18,7 @@ export default function Contact() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5000/api/contact/send', {
+      const res = await fetch('http://82.29.178.64:5000/api/contact/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
